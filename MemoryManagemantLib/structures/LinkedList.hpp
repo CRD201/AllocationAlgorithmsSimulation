@@ -23,7 +23,7 @@ namespace MML::structures
 
         inline void fromStart() override
         {
-            currectNode = head;
+            currentNode = head;
             isHoleFound = false;
         }
         inline void fromAdress(unsigned adress) override
@@ -41,7 +41,7 @@ namespace MML::structures
         std::shared_ptr<Node> findNodeByAdress(unsigned adress);
         
         std::shared_ptr<Node> head;
-        std::shared_ptr<Node> currectNode;
+        std::shared_ptr<Node> currentNode;
         bool isHoleFound{false};
     };
 }

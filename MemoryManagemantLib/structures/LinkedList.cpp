@@ -4,7 +4,7 @@ namespace MML::structures
 {
     template <unsigned SIZE>
     LinkedList<SIZE>::LinkedList()
-        : head{std::make_shared<Node>(true, 0, SIZE, nullptr)}, currectNode{head}
+        : head{std::make_shared<Node>(true, 0, SIZE, nullptr)}, currentNode{head}
     {
     }
 
@@ -18,25 +18,25 @@ namespace MML::structures
 
         if (isHoleFound)
         {
-            currectNode = currectNode->next;
+            currentNode = currentNode->next;
         }
 
-        while (!currectNode->isHole)
+        while (!currentNode->isHole)
         {
             if (lastNodeReached())
             {
-                return nullptr;
+                return std::nullopt;
             }
-            currectNode = currectNode->next;
+            currentNode = currentNode->next;
         }
 
-        return std::make_optional<common::Hole>(currectNode->adress, currectNode->size);
+        return std::make_optional<common::Hole>(currentNode->adress, currentNode->size);
     }
 
     template <unsigned SIZE>
     bool LinkedList<SIZE>::lastNodeReached()
     {
-        if (currectNode->next == nullptr)
+        if (currentNode->next == nullptr)
         {
             return true;
         }
@@ -61,16 +61,16 @@ namespace MML::structures
     template <unsigned SIZE>
     void LinkedList<SIZE>::fillHole(unsigned spaceToFill)
     {
-        currectNode->isHole = false;
+        currentNode->isHole = false;
 
-        if (currectNode->size > spaceToFill)
+        if (currentNode->size > spaceToFill)
         {
             std::shared_ptr<Node> newHole{std::make_shared<Node>(true,
-                                                                 currectNode->adress + spaceToFill,
-                                                                 currectNode->size - spaceToFill,
-                                                                 currectNode->next)};
-            currectNode->size = spaceToFill;
-            currectNode->next = newHole;
+                                                                 currentNode->adress + spaceToFill,
+                                                                 currentNode->size - spaceToFill,
+                                                                 currentNode->next)};
+            currentNode->size = spaceToFill;
+            currentNode->next = newHole;
         }
     }
 
@@ -85,7 +85,7 @@ namespace MML::structures
             if (tmpNode->isHole || tmpNode->next->isHole)
             {
                 tmpNode->size += tmpNode->next->size;
-                tmpNode->next = tmp->next->next;
+                tmpNode->next = tmpNode->next->next;
             }
             else
             {

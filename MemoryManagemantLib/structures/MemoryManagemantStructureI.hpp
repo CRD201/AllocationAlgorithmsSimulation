@@ -1,7 +1,7 @@
 #pragma once
 
 #include <optional>
-#include "MemoryManagemantLib/common/Hole.hpp"
+#include "common/Hole.hpp"
 
 namespace MML::structures
 {
