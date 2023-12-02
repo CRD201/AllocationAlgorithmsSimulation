@@ -5,4 +5,4 @@ set(ALGORITHMS_SRC
     ${ALGORITHMS_DIR}/NextFit.cpp
     ${ALGORITHMS_DIR}/WorstFit.cpp)
 
-target_sources(mml PRIVATE ${ALGORITHMS_SRC})
+target_sources(mml PUBLIC ${ALGORITHMS_SRC})

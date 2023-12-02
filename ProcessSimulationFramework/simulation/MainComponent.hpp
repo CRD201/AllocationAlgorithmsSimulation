@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include "utils/Concepts.hpp"
 
 using PSF::simulation::utils::AllocationAlgotithm;
@@ -21,6 +22,18 @@ namespace PSF::simulation
 
         void run()
         {
+            for (int i{0}; i < NUMBER_OF_ITERATION; ++i)
+            {
+                const auto adress{algorithm.findSpace(i)};
+                if (adress.has_value())
+                {
+                    std::cout << "[PSF-INF] adress allocated to: " << adress.value() << std::endl;
+                }
+                else
+                {
+                    std::cout << "[PSF-ERR] adress not found" << std::endl;
+                }
+            }
         }
 
     private:

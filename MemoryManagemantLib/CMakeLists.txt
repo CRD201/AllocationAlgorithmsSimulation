@@ -1,5 +1,4 @@
-add_library(mmf STATIC)
+add_library(mml INTERFACE)
 
 add_subdirectory(algorithms)
-add_subdirectory(common)
 add_subdirectory(structures)
