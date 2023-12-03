@@ -8,7 +8,8 @@ then
 fi
 cd build
 cmake ..
+cmake --build .
 
 echo  "---Running App---"
-make
+./alocation_algos
 cd ..

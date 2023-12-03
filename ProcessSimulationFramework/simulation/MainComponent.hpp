@@ -22,7 +22,7 @@ namespace PSF::simulation
 
         void run()
         {
-            for (int i{0}; i < NUMBER_OF_ITERATION; ++i)
+            for (unsigned i{0}; i < NUMBER_OF_ITERATION; ++i)
             {
                 const auto adress{algorithm.findSpace(i)};
                 if (adress.has_value())

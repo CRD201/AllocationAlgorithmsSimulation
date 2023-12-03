@@ -1,8 +1,0 @@
-set(STRUCTURES_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-set(STRUCTURES_SRC 
-    ${STRUCTURES_DIR}/BestFit.cpp
-    ${STRUCTURES_DIR}/FirstFit.cpp
-    ${STRUCTURES_DIR}/NextFit.cpp
-    ${STRUCTURES_DIR}/WorstFit.cpp)
-
-target_sources(mml PRIVATE ${STRUCTURES_SRC})

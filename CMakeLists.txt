@@ -4,10 +4,13 @@ project(alocation_algos VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(alocation_algos main.cpp)
+include_directories(${PROJECT_SOURCE_DIR})
+link_directories(${PROJECT_SOURCE_DIR})
 
 add_subdirectory(MemoryManagemantLib)
 add_subdirectory(ProcessSimulationFramework)
 
-target_link_libraries(alocation_algos PUBLIC mml)
-target_link_libraries(alocation_algos PUBLIC psf)
+add_executable(${PROJECT_NAME} main.cpp)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC mml)
+target_link_libraries(${PROJECT_NAME} PUBLIC psf)

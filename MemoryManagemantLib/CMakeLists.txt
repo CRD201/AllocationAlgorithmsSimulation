@@ -1,4 +1,3 @@
-add_library(mml INTERFACE)
+add_library(mml STATIC)
 
 add_subdirectory(algorithms)
-add_subdirectory(structures)
