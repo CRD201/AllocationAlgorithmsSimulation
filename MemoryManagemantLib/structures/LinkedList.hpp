@@ -10,7 +10,13 @@ namespace MML::structures
     {
         struct Node
         {
-            Node(bool isHole, unsigned adress, unsigned size) : isHole{isHole}, adress{adress}, size{size} {}
+            Node(bool isHole, unsigned adress, unsigned size, std::shared_ptr<Node> next)
+                : isHole{isHole},
+                  adress{adress},
+                  size{size},
+                  next{next}
+            {
+            }
 
             bool isHole;
             unsigned adress;
@@ -101,7 +107,7 @@ namespace MML::structures
             return false;
         }
 
-        std::shared_ptr<typename Node> findNodeByAdress(unsigned adress)
+        std::shared_ptr<Node> findNodeByAdress(unsigned adress)
         {
             std::shared_ptr<Node> tmpNode{head};
             while (tmpNode->adress < adress)
