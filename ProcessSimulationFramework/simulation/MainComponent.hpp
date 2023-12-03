@@ -24,7 +24,7 @@ namespace PSF::simulation
         {
             for (unsigned i{0}; i < NUMBER_OF_ITERATION; ++i)
             {
-                const auto adress{algorithm.findSpace(i)};
+                const auto adress{algorithm.findSpace(i + 1)};
                 if (adress.has_value())
                 {
                     std::cout << "[PSF-INF] adress allocated to: " << adress.value() << std::endl;
