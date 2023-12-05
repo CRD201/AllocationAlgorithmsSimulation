@@ -14,12 +14,12 @@ namespace PSF::process
 
     void ProcessManager::handleProcesses()
     {
-        handleNewProcess();
+        handleFinishedPrecesses();
         if (!processStorage.isProcessQueueEmpty())
         {
             handleQueuedProcesses();
         }
-        handleFinishedPrecesses();
+        handleNewProcess();
     }
 
     void ProcessManager::handleNewProcess()

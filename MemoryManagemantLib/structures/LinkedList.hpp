@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <iostream>
 #include "MemoryManagemantStructureI.hpp"
 
 namespace MML::structures
@@ -64,8 +65,10 @@ namespace MML::structures
 
             return std::make_optional<common::Hole>(currentNode->adress, currentNode->size);
         }
+
         void fillHole(unsigned spaceToFill) override
         {
+            std::cout << "[MML-INF] LinkedList: fill space spaceToFill: " << spaceToFill << " adress: " << currentNode->adress << std::endl;
             currentNode->isHole = false;
 
             if (currentNode->size > spaceToFill)
@@ -78,26 +81,49 @@ namespace MML::structures
                 currentNode->next = newHole;
             }
         }
+
         void freeSpace(unsigned adress, unsigned spaceToFree) override
         {
-            std::shared_ptr<Node> newHole = findNodeByAdress(adress);
+            std::cout << "[MML-INF] LinkedList: free space spaceToFree: " << spaceToFree << " adress: " << adress << std::endl;
+            findNodeByAdress(adress)->isHole = true;
 
-            std::shared_ptr<Node> tmpNode{head};
-            while (tmpNode->next != nullptr)
+            std::shared_ptr<Node> tmpNode{};
+            if (adress != 0)
             {
-                if (tmpNode->isHole || tmpNode->next->isHole)
-                {
-                    tmpNode->size += tmpNode->next->size;
-                    tmpNode->next = tmpNode->next->next;
-                }
-                else
-                {
-                    tmpNode = tmpNode->next;
-                }
+                tmpNode = findNodeByAdress(adress - 1);
+                mergeSubsequentHoles(tmpNode);
             }
+            else
+            {
+                tmpNode = findNodeByAdress(adress);
+            }
+            mergeSubsequentHoles(tmpNode);
         }
 
     private:
+        void print()
+        {
+            std::shared_ptr<Node> tmpNode{head};
+            while (tmpNode)
+            {
+                std::cout << "[MML-INF] LinkedList: Node - isHole: " << tmpNode->isHole << " size: " << tmpNode->size << " adress: " << tmpNode->adress << std::endl;
+                tmpNode = tmpNode->next;
+            }
+        }
+
+        void mergeSubsequentHoles(std::shared_ptr<Node> &node)
+        {
+            if (node->isHole && node->next->isHole)
+            {
+                node->size += node->next->size;
+                node->next = node->next->next;
+            }
+            else
+            {
+                node = node->next;
+            }
+        }
+
         bool lastNodeReached()
         {
             if (currentNode->next == nullptr)
@@ -110,15 +136,15 @@ namespace MML::structures
         std::shared_ptr<Node> findNodeByAdress(unsigned adress)
         {
             std::shared_ptr<Node> tmpNode{head};
-            while (tmpNode->adress < adress)
+            while (tmpNode != nullptr)
             {
-                if (tmpNode->next == nullptr)
+                if (tmpNode->adress + tmpNode->size > adress)
                 {
-                    return nullptr;
+                    return tmpNode;
                 }
                 tmpNode = tmpNode->next;
             }
-            return tmpNode;
+            return nullptr;
         }
 
         std::shared_ptr<Node> head;

@@ -36,7 +36,8 @@ namespace PSF::process
         inline unsigned calculateId()
         {
             static unsigned processIdCounter{0};
-            return processIdCounter++;
+            processIdCounter += 1;
+            return processIdCounter;
         }
 
         unsigned processId;

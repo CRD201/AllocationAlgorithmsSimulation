@@ -12,17 +12,17 @@ namespace PSF::process
 
     ProcessFactory::ProcessThreshold ProcessFactory::calculateSmallProcessSize(const unsigned memorySize)
     {
-        return ProcessThreshold(memorySize * 0.0001, memorySize * 0.001);
+        return ProcessThreshold(memorySize / 10000, memorySize / 1000);
     }
 
     ProcessFactory::ProcessThreshold ProcessFactory::calculateMediumProcessSize(const unsigned memorySize)
     {
-        return ProcessThreshold(memorySize * 0.001, memorySize * 0.01);
+        return ProcessThreshold(memorySize / 1000, memorySize / 100);
     }
 
     ProcessFactory::ProcessThreshold ProcessFactory::calculateLargeProcessSize(const unsigned memorySize)
     {
-        return ProcessThreshold(memorySize * 0.01, memorySize * 0.04);
+        return ProcessThreshold(memorySize / 100, memorySize / 25);
     }
 
     Process ProcessFactory::spawnProcess()
@@ -37,8 +37,10 @@ namespace PSF::process
     {
         std::uniform_real_distribution<double> processDistribution(0.0, 1.0);
         const auto generatedPercentage{processDistribution(generator)};
+        std::cout << "[PSF-INF] ProcessFactory: generatedPercentage " << generatedPercentage << std::endl;
         if (generatedPercentage < smallProcessThreshold)
         {
+        std::cout << "[PSF-INF] ProcessFactory: generatedPercentage " << generatedPercentage << std::endl;
             return calculateProcessSize(smallProcessSize);
         }
         if (generatedPercentage < mediumProcessThreshold)
@@ -50,6 +52,7 @@ namespace PSF::process
 
     unsigned ProcessFactory::calculateProcessSize(ProcessThreshold processSizeThreshold)
     {
+        std::cout << "[PSF-INF] ProcessFactory: calculateProcessSize min " << processSizeThreshold.first << " max" << processSizeThreshold.second << std::endl;
         std::uniform_int_distribution<unsigned>
             sizeDistribution(processSizeThreshold.first, processSizeThreshold.second);
         return sizeDistribution(generator);
