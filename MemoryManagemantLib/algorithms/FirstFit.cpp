@@ -10,7 +10,6 @@ namespace MML::algorithms
 
     std::optional<unsigned> FirstFit::findSpace(const unsigned size)
     {
-        std::cout << "[MML-INF] FirstFit: lookoing for hole with size: " << size << std::endl;
         mmStructure.fromStart();
         unsigned holeSize{0};
         unsigned holeAdress{0};

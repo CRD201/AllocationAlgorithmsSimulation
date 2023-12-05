@@ -1,3 +1,6 @@
 # directories
 .vscode/
 build/
+
+#files
+log.dat

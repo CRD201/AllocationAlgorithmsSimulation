@@ -24,7 +24,6 @@ namespace MML::structures
 
         std::optional<common::Hole> getHole() override
         {
-            std::cout << "[MML-INF] Bitmap: start " << std::endl;
             index += holeSize;
             if (isIndexSizeValid())
             {

@@ -10,14 +10,12 @@ namespace MML::algorithms
 
     std::optional<unsigned> NextFit::findSpace(const unsigned size)
     {
-        std::cout << "[MML-INF] NextFit: lookoing for hole with size: " << size << std::endl;
         const auto hole{mmStructure.getHole()};
         unsigned holeSize{0};
         unsigned holeAdress{0};
 
         if (!hole.has_value())
         {
-            std::cout << "[MML-INF] NextFit: reached end, restarting " << size << std::endl;
             mmStructure.fromStart();
         }
         else
