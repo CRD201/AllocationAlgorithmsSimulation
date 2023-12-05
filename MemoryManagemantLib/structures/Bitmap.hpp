@@ -76,6 +76,7 @@ namespace MML::structures
 
         void freeSpace(unsigned adress, unsigned spaceToFree) override
         {
+            std::cout << "[MML-INF] Bitmap: free space spaceToFree: " << spaceToFree << " adress: " << index << std::endl;
             for (unsigned i{adress}; i < adress + spaceToFree; ++i)
             {
                 bits.flip(i);

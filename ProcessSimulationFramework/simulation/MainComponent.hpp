@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "utils/Concepts.hpp"
+#include "ProcessSimulationFramework/process/ProcessManager.hpp"
 
 using PSF::simulation::utils::AllocationAlgotithm;
 using PSF::simulation::utils::MemoryManagemantStructure;
@@ -16,7 +17,10 @@ namespace PSF::simulation
     class MainComponent
     {
     public:
-        MainComponent() : mmStructure{}, algorithm{mmStructure}
+        MainComponent()
+            : mmStructure{},
+              algorithm{mmStructure},
+              processManager{MEMORY_SIZE, algorithm, mmStructure}
         {
         }
 
@@ -24,20 +28,14 @@ namespace PSF::simulation
         {
             for (unsigned i{0}; i < NUMBER_OF_ITERATION; ++i)
             {
-                const auto adress{algorithm.findSpace(i + 1)};
-                if (adress.has_value())
-                {
-                    std::cout << "[PSF-INF] adress allocated to: " << adress.value() << std::endl;
-                }
-                else
-                {
-                    std::cout << "[PSF-ERR] adress not found" << std::endl;
-                }
+                std::cout << "[PSF-INF] MainComponent: iteration: " << i << std::endl;
+                processManager.handleProcesses();
             }
         }
 
     private:
         Algorithm algorithm;
         MMStructure mmStructure;
+        process::ProcessManager processManager;
     };
 }
