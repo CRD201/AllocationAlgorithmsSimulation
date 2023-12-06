@@ -22,7 +22,7 @@ namespace MML::algorithms
                 break;
             }
 
-            if ((!isAdressFound) || (hole->getSize() > holeSize))
+            if (hole->getSize() >= size && ((!isAdressFound) || (hole->getSize() > holeSize)))
             {
                 isAdressFound = true;
                 holeSize = hole->getSize();

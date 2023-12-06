@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <iostream>
 #include "MemoryManagemantStructureI.hpp"
 
 namespace MML::structures
@@ -36,6 +35,7 @@ namespace MML::structures
             currentNode = head;
             isHoleFound = false;
         }
+
         inline void fromAdress(unsigned adress) override
         {
             fromStart();
@@ -63,12 +63,12 @@ namespace MML::structures
                 currentNode = currentNode->next;
             }
 
+            isHoleFound = true;
             return std::make_optional<common::Hole>(currentNode->adress, currentNode->size);
         }
 
         void fillHole(unsigned spaceToFill) override
         {
-            std::cout << "[MML-INF] LinkedList: fill space spaceToFill: " << spaceToFill << " adress: " << currentNode->adress << std::endl;
             currentNode->isHole = false;
 
             if (currentNode->size > spaceToFill)
@@ -84,7 +84,6 @@ namespace MML::structures
 
         void freeSpace(unsigned adress, unsigned spaceToFree) override
         {
-            std::cout << "[MML-INF] LinkedList: free space spaceToFree: " << spaceToFree << " adress: " << adress << std::endl;
             findNodeByAdress(adress)->isHole = true;
 
             std::shared_ptr<Node> tmpNode{};
@@ -101,18 +100,13 @@ namespace MML::structures
         }
 
     private:
-        void print()
-        {
-            std::shared_ptr<Node> tmpNode{head};
-            while (tmpNode)
-            {
-                std::cout << "[MML-INF] LinkedList: Node - isHole: " << tmpNode->isHole << " size: " << tmpNode->size << " adress: " << tmpNode->adress << std::endl;
-                tmpNode = tmpNode->next;
-            }
-        }
-
         void mergeSubsequentHoles(std::shared_ptr<Node> &node)
         {
+            if (node->next == nullptr)
+            {
+                return;
+            }
+
             if (node->isHole && node->next->isHole)
             {
                 node->size += node->next->size;

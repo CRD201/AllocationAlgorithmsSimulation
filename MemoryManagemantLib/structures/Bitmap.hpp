@@ -1,7 +1,6 @@
 #pragma once
 
 #include <bitset>
-#include <iostream>
 #include "MemoryManagemantStructureI.hpp"
 
 namespace MML::structures
@@ -12,10 +11,10 @@ namespace MML::structures
     public:
         inline void fromStart() override
         {
-            // std::cout << "[MML-INF] Bitmap: fromStart " << std::endl;
             index = 0;
             holeSize = 0;
         }
+
         inline void fromAdress(unsigned adress) override
         {
             index = adress;
@@ -27,7 +26,6 @@ namespace MML::structures
             index += holeSize;
             if (isIndexSizeValid())
             {
-                std::cout << "[MML-ERR] Bitmap: invalid index at start: " << index << std::endl;
                 return std::nullopt;
             }
 
@@ -36,7 +34,6 @@ namespace MML::structures
                 ++index;
                 if (isIndexSizeValid())
                 {
-                    std::cout << "[MML-ERR] Bitmap: invalid index: " << index << std::endl;
                     return std::nullopt;
                 }
             }
@@ -46,23 +43,12 @@ namespace MML::structures
                 if (bits.test(i))
                 {
                     holeSize = i - index;
-                    std::cout << "[MML-INF] Bitmap: hole found holeSize: " << holeSize << " adress: " << index << std::endl;
                     return std::make_optional<common::Hole>(index, holeSize);
                 }
             }
 
             holeSize = SIZE - index;
-            std::cout << "[MML-INF] Bitmap: hole found holeSize: " << holeSize << " adress: " << index << std::endl;
             return std::make_optional<common::Hole>(index, holeSize);
-        }
-
-        bool isIndexSizeValid()
-        {
-            if (index >= SIZE)
-            {
-                return true;
-            }
-            return false;
         }
 
         void fillHole(unsigned spaceToFill) override
@@ -71,15 +57,25 @@ namespace MML::structures
             {
                 bits.flip(index);
             }
+            holeSize = 0;
         }
 
         void freeSpace(unsigned adress, unsigned spaceToFree) override
         {
-            std::cout << "[MML-INF] Bitmap: free space spaceToFree: " << spaceToFree << " adress: " << index << std::endl;
             for (unsigned i{adress}; i < adress + spaceToFree; ++i)
             {
                 bits.flip(i);
             }
+        }
+
+    private:
+        bool isIndexSizeValid()
+        {
+            if (index >= SIZE)
+            {
+                return true;
+            }
+            return false;
         }
 
         std::bitset<SIZE> bits{};

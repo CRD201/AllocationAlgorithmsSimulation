@@ -1,0 +1,5 @@
+set(MEASUREMENT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(MEASUREMENT_SRC 
+    ${MEASUREMENT_DIR}/MeasurementHandler.cpp)
+
+target_sources(psf PUBLIC ${MEASUREMENT_SRC})

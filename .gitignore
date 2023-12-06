@@ -3,4 +3,6 @@
 build/
 
 #files
-log.dat
+*.dat
+*.csv
+*.log

@@ -30,14 +30,14 @@ namespace PSF::process
         // 60% of medium - 0.1% - 1.0% memory
         // 20% of large - 1.0% - 4.0% memory
 
-        static constexpr double smallProcessThreshold{0.2};
-        static constexpr double mediumProcessThreshold{0.8};
+        static constexpr double smallProcessThreshold{0.3};
+        static constexpr double mediumProcessThreshold{0.85};
 
         const ProcessThreshold smallProcessSize;
         const ProcessThreshold mediumProcessSize;
         const ProcessThreshold largeProcessSize;
 
-        static constexpr ProcessThreshold processLifeCycleThreshold{5, 100}; // number of iteration
+        static constexpr ProcessThreshold processLifeCycleThreshold{100, 150}; // number of iteration
 
         unsigned processIdCounter{0};
 

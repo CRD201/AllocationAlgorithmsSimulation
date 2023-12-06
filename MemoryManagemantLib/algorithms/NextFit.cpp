@@ -1,4 +1,3 @@
-#include <iostream>
 #include "NextFit.hpp"
 
 namespace MML::algorithms
@@ -29,14 +28,12 @@ namespace MML::algorithms
             const auto hole{mmStructure.getHole()};
             if (!hole.has_value())
             {
-                std::cout << "[MML-ERR] NextFit: no hole" << std::endl;
                 return std::nullopt;
             }
             holeSize = hole->getSize();
             holeAdress = hole->getAdress();
         }
 
-        std::cout << "[MML-INF] NextFit: hole found: size: " << holeSize << " adress: " << holeAdress << std::endl;
         mmStructure.fillHole(size);
         return std::make_optional<unsigned>(holeAdress);
     }

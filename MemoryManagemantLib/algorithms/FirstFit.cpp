@@ -1,4 +1,3 @@
-#include <iostream>
 #include "FirstFit.hpp"
 
 namespace MML::algorithms
@@ -19,14 +18,12 @@ namespace MML::algorithms
             const auto hole{mmStructure.getHole()};
             if (!hole.has_value())
             {
-                std::cout << "[MML-ERR] FirstFit: no hole" << std::endl;
                 return std::nullopt;
             }
             holeSize = hole->getSize();
             holeAdress = hole->getAdress();
         }
 
-        std::cout << "[MML-INF] FirstFit: hole found: size: " << holeSize << " adress: " << holeAdress << std::endl;
         mmStructure.fillHole(size);
         return std::make_optional<unsigned>(holeAdress);
     }

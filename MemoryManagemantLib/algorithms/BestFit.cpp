@@ -1,5 +1,4 @@
 #include "BestFit.hpp"
-
 namespace MML::algorithms
 {
     BestFit::BestFit(structures::MemoryManagemantStructureI &mmStructure)

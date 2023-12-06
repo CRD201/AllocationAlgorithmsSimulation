@@ -1,8 +1,9 @@
 #pragma once
 
-#include <iostream>
 #include "ProcessSimulationFramework/process/ProcessManager.hpp"
+#include "ProcessSimulationFramework/measurement/MeasurementHandler.hpp"
 #include "ProcessSimulationFramework/memory/Memory.hpp"
+
 #include "Concepts.hpp"
 
 namespace PSF::simulation
@@ -18,7 +19,7 @@ namespace PSF::simulation
         MainComponent()
             : mmStructure{},
               algorithm{mmStructure},
-              processManager{algorithm, mmStructure, memory}
+              processManager{algorithm, mmStructure, measurementHandler, memory}
         {
         }
 
@@ -28,13 +29,14 @@ namespace PSF::simulation
             {
                 std::cout << "[PSF-INF] MainComponent: iteration: " << i << std::endl;
                 processManager.handleProcesses();
-                std::cout << "[PSF-INF] MainComponent: fragmentation: " << memory.getFragmentedMemorySize() << std::endl;
+                measurementHandler.saveData();
             }
         }
 
     private:
         Algorithm algorithm;
         MMStructure mmStructure{};
+        PSF::measurement::MeasurementHandler measurementHandler{};
         memory::Memory<MEMORY_SIZE> memory{};
         process::ProcessManager<MEMORY_SIZE> processManager;
     };
