@@ -37,7 +37,7 @@ namespace PSF::process
         const ProcessThreshold mediumProcessSize;
         const ProcessThreshold largeProcessSize;
 
-        static constexpr ProcessThreshold processLifeCycleThreshold{100, 150}; // number of iteration
+        static constexpr ProcessThreshold processLifeCycleThreshold{50, 150}; // number of iteration
 
         unsigned processIdCounter{0};
 

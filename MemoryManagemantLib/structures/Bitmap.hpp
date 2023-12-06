@@ -1,6 +1,5 @@
 #pragma once
 
-#include <bitset>
 #include "MemoryManagemantStructureI.hpp"
 
 namespace MML::structures
@@ -9,6 +8,14 @@ namespace MML::structures
     class Bitmap : public MemoryManagemantStructureI
     {
     public:
+        Bitmap()
+        {
+            for (unsigned i{0}; i < SIZE; ++i)
+            {
+                bits[i] = false;
+            }
+        }
+        
         inline void fromStart() override
         {
             index = 0;
@@ -29,7 +36,7 @@ namespace MML::structures
                 return std::nullopt;
             }
 
-            while (bits.test(index))
+            while (bits[index])
             {
                 ++index;
                 if (isIndexSizeValid())
@@ -40,7 +47,7 @@ namespace MML::structures
 
             for (unsigned i{index}; i < SIZE; ++i)
             {
-                if (bits.test(i))
+                if (bits[i])
                 {
                     holeSize = i - index;
                     return std::make_optional<common::Hole>(index, holeSize);
@@ -55,7 +62,7 @@ namespace MML::structures
         {
             for (unsigned i{0}; i < spaceToFill; ++index, ++i)
             {
-                bits.flip(index);
+                bits[index] = true;
             }
             holeSize = 0;
         }
@@ -64,7 +71,7 @@ namespace MML::structures
         {
             for (unsigned i{adress}; i < adress + spaceToFree; ++i)
             {
-                bits.flip(i);
+                bits[i] = false;
             }
         }
 
@@ -78,7 +85,7 @@ namespace MML::structures
             return false;
         }
 
-        std::bitset<SIZE> bits{};
+        bool bits[SIZE];
         unsigned index{0};
         unsigned holeSize{0};
     };

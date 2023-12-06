@@ -7,6 +7,6 @@ using PSF::simulation::Simulation;
 
 int main()
 {
-    Simulation<MEM_SIZE, ITER_NUM>().setBestFit().setLinkedList().run();
+    Simulation<MEM_SIZE, ITER_NUM>().setFirstFit().setLinkedList().run();
     return 0;
 }

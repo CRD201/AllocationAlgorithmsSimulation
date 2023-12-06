@@ -53,12 +53,12 @@ namespace PSF::measurement
     void MeasurementHandler::saveData()
     {
         fileManager() << numberOfIteration << ",";
-        fileManager() << algorithmTimeMeasurements.oneItertionTime << ",";
-        fileManager() << algorithmTimeMeasurements.totalTime << ",";
-        fileManager() << mmStructureAllocationTimeMeasurements.oneItertionTime << ",";
-        fileManager() << mmStructureAllocationTimeMeasurements.totalTime << ",";
-        fileManager() << mmStructureMemoryFreeingTimeMeasurements.oneItertionTime << ",";
-        fileManager() << mmStructureMemoryFreeingTimeMeasurements.totalTime << ",";
+        fileManager() << algorithmTimeMeasurements.oneItertionTime.count() << ",";
+        fileManager() << algorithmTimeMeasurements.totalTime.count() << ",";
+        fileManager() << mmStructureAllocationTimeMeasurements.oneItertionTime.count() << ",";
+        fileManager() << mmStructureAllocationTimeMeasurements.totalTime.count() << ",";
+        fileManager() << mmStructureMemoryFreeingTimeMeasurements.oneItertionTime.count() << ",";
+        fileManager() << mmStructureMemoryFreeingTimeMeasurements.totalTime.count() << ",";
         fileManager() << fragmentationSize << "\n";
 
         numberOfIteration += 1;
