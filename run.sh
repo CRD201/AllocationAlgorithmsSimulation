@@ -11,5 +11,5 @@ cmake ..
 cmake --build .
 
 echo  "---Running App---"
-./alocation_algos
+./aas
 cd ..
