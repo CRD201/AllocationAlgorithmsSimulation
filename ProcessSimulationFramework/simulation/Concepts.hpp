@@ -4,7 +4,7 @@
 #include "MemoryManagemantLib/algorithms/AllocationAlgotithmI.hpp"
 #include "MemoryManagemantLib/structures/MemoryManagemantStructureI.hpp"
 
-namespace PSF::simulation::utils
+namespace PSF::simulation
 {
     template <class T>
     concept MemoryManagemantStructure = std::derived_from<T, MML::structures::MemoryManagemantStructureI>;

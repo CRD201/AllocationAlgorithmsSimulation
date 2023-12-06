@@ -1,11 +1,9 @@
 #pragma once
 
 #include <iostream>
-#include "utils/Concepts.hpp"
 #include "ProcessSimulationFramework/process/ProcessManager.hpp"
-
-using PSF::simulation::utils::AllocationAlgotithm;
-using PSF::simulation::utils::MemoryManagemantStructure;
+#include "ProcessSimulationFramework/memory/Memory.hpp"
+#include "Concepts.hpp"
 
 namespace PSF::simulation
 {
@@ -20,7 +18,7 @@ namespace PSF::simulation
         MainComponent()
             : mmStructure{},
               algorithm{mmStructure},
-              processManager{MEMORY_SIZE, algorithm, mmStructure}
+              processManager{algorithm, mmStructure, memory}
         {
         }
 
@@ -30,12 +28,14 @@ namespace PSF::simulation
             {
                 std::cout << "[PSF-INF] MainComponent: iteration: " << i << std::endl;
                 processManager.handleProcesses();
+                std::cout << "[PSF-INF] MainComponent: fragmentation: " << memory.getFragmentedMemorySize() << std::endl;
             }
         }
 
     private:
         Algorithm algorithm;
-        MMStructure mmStructure;
-        process::ProcessManager processManager;
+        MMStructure mmStructure{};
+        memory::Memory<MEMORY_SIZE> memory{};
+        process::ProcessManager<MEMORY_SIZE> processManager;
     };
 }
